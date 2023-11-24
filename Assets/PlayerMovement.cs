@@ -4,37 +4,27 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private Rigidbody2D rb;
+    private int wholeNumber = 0;
+    private float decimalNumber = 21.37f;
+    private string text = "Hello, world!";
+    private bool boolean = false;
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        Debug.Log("Hello, world!");
+        Debug.Log(text);
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        Vector2 movement = Vector2.zero;
-
-        if (Input.GetKey(KeyCode.W))
+        float dirX = Input.GetAxis("Horizontal");
+        rb.velocity = new Vector2(dirX*5f, rb.velocity.y);
+        if (Input.GetButtonDown("Jump"))
         {
-            movement.y = 20;
+            rb.velocity = new Vector2(rb.velocity.x, 10f);
         }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            movement.y = -10;
-        }
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            movement.x = -10;
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            movement.x += 10;
-        }
-
-        rb.velocity = movement;
 
     }
 }
